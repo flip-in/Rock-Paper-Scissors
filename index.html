@@ -1,0 +1,51 @@
+<script>
+
+    function computerPlay(){  //randomly returns 'Rock', 'Paper', or 'Scissors'
+        
+        switch (Math.floor(Math.random()*3)) {
+            case 0:
+            return 'Rock';
+            break;
+            case 1:
+            return 'Paper';
+            break;
+            case 2:
+            return 'Scissors';
+            break;
+            default:
+            return 'not valid';
+            break;
+        }
+    }
+
+    function playGame(playerSelection, computerSelection){
+        let winner = "";
+        playerSelection = playerSelection.toLowerCase();
+        playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+        if ((playerSelection === "Rock" && computerSelection === "Paper") || 
+            (playerSelection === "Scissors" && computerSelection === "Rock") || 
+            (playerSelection === "Paper" && computerSelection === "Scissors")){
+                return "You Lose! " + computerSelection + " beats " + playerSelection + ".";
+        }
+        else if ((playerSelection === "Rock" && computerSelection === "Scissors") || 
+            (playerSelection ==="Scissors" && computerSelection==="Paper") || 
+            (playerSelection==="Paper" && computerSelection==="Rock")){
+                return "You Win! " + playerSelection + " beats " + computerSelection + ".";
+        }
+        else if (playerSelection === computerSelection) {
+            return "Both players selected " + playerSelection + ". Play again!";
+        }
+        else{
+            return "Play again!";
+        }
+
+    }
+
+    const playerSelection = computerPlay();
+    const computerSelection = computerPlay();
+    console.log("your choice is " + playerSelection + ".");
+    console.log("the computer's choice is " + computerSelection + ".");
+    console.log(playGame(playerSelection, computerSelection))
+
+
+</script>
