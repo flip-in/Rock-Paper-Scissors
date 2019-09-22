@@ -52,6 +52,20 @@ section {
     background: rgb(45, 117, 96);
     border-radius: 3px;
     cursor: pointer;
+    /*box-shadow: 0 3px rgb(201, 201, 201);*/
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+button:hover{
+    background-color: #2f918c;
+    color: rgb(0, 0, 0);
+}
+
+button:active{
+    background-color: #2f918c;
+    /*box-shadow: 0 3px rgb(201, 201, 201);*/
+    box-shadow: 0 8px 10px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    transform: translateY(4px);
 }
 
 .match{

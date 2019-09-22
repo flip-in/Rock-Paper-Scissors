@@ -43,12 +43,17 @@ const game = () => {
                     //Update Images -- needs delay
                     playerHand.src = `./assets/${this.textContent}.png`
                     computerHand.src = `./assets/${computerChoice}.png`
+                    options.style.color = "white";
                 }, 2000)
 
                 //Shaking animation no delay
                 playerHand.style.animation = "shakePlayer 2s ease";
                 computerHand.style.animation = "shakeComputer 2s ease";
+                this.style.color = "red";
+                
+                
             });
+
         });
 
        
