@@ -7,10 +7,11 @@ const game = () => {
         const playBtn = document.querySelector('.intro button');
         const introScreen = document.querySelector('.intro');
         const matchScreen = document.querySelector('.match');
-
+        const scoreScreen = document.querySelector('.score');
         playBtn.addEventListener('click', ()=> {
             introScreen.classList.add('fadeOut');
             matchScreen.classList.add('fadeIn');
+            scoreScreen.classList.add('fadeIn');
         });
     };
     //Play Match
@@ -19,7 +20,7 @@ const game = () => {
         const playerHand = document.querySelector('.player-hand');
         const computerHand = document.querySelector('.computer-hand');
         const hands = document.querySelectorAll('.hands img');
-
+        
         hands.forEach(hand =>{
             hand.addEventListener('animationend', function(){
                 this.style.animation = '';
@@ -28,39 +29,45 @@ const game = () => {
         //Computer Options
         const computerOptions = ['rock', 'paper', 'scissors'];
         
-        options.forEach(options=>{
-
-            options.addEventListener('click', function(){
-                // console.log(this);
+        options.forEach(option=>{
+            
+            option.addEventListener('click', function(){
+                console.log(this);
                 //The Computer Choice
                 const computerNumber = Math.floor(Math.random() *3);
                 const computerChoice = computerOptions[computerNumber];
-
                 //Timeout takes function (first) and time (second)
                 setTimeout(() =>{
                     //Here is where we call compareHands -- needs delay
                     compareHands(this.textContent, computerChoice);
-
                     //Update Images -- needs delay
                     playerHand.src = `./assets/${this.textContent}.png`
                     computerHand.src = `./assets/${computerChoice}.png`
-                    options.style.color = "white";
-                    document.getElementById("rock-button").disabled=false;
-                    document.getElementById("paper-button").disabled=false;
-                    document.getElementById("scissors-button").disabled=false;
+                    //reset button text to white -- needs delay
+                    option.style.color = "white";
+                    //re-enable buttons -- needs delay
+                    options.forEach(el =>{
+                       el.disabled = false;
+                    
+                   });
                 }, 2000)
-
                 //Shaking animation no delay
                 playerHand.style.animation = "shakePlayer 2s ease";
                 computerHand.style.animation = "shakeComputer 2s ease";
-                this.style.color = "red";
-                document.getElementById("rock-button").disabled=true;
-                document.getElementById("paper-button").disabled=true;
-                document.getElementById("scissors-button").disabled=true;
-                
-            });
+                //current button color is red no delay
+                this.style.color = "rgb(39, 41, 68)";
+                //disable all buttons no delay
+                options.forEach(el => {
+                    el.disabled = true;
 
+                });
+                // endGame();
+                console.log("computer score:   ", cScore);
+                console.log("player Score:     ", pScore);
+            });
+            
         });
+
 
        
 
@@ -125,12 +132,44 @@ const game = () => {
         }
 
     }
+    // const endGame = () =>{
+    //     const againBtn = document.querySelector('.result button');
+    //     const introScreen = document.querySelector('.intro');
+    //     const matchScreen = document.querySelector('.match');
+    //     const scoreScreen = document.querySelector('.score');
+    //     const resultScreen = document.querySelector('.result');
+    //     console.log("i'm running");
 
+    //     matchScreen.classList.remove('fadeIn');
+    //     scoreScreen.classList.remove('fadeIn');
+    //     resultScreen.classList.add('fadeIn');
+
+    //     againBtn.addEventListener('click', ()=> {
+    //         introScreen.classList.remove('fadeOut')
+    //         matchScreen.classList.add('fadeOut');
+    //         scoreScreen.classList.add('fadeOut');
+    //         resultScreen.classList.remove('fadeIn');
+    //         restartGame();
+    //     });
+        
+    // };
+
+
+    // const restartGame = () =>{
+    //     const winner = document.querySelector('.winner');
+    //     winner.textContent = "Choose an option.";
+    //     pScore = 0;
+    //     updateScore();
+    //     cScore = 0;
+    //     updateScore();
+    //     startGame();
+    // };
 
     //call all inner functions
-
     startGame();
     playMatch();
+    console.log("i/'m done");
+
 };
 
 //start the game
