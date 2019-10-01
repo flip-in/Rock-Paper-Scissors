@@ -62,17 +62,17 @@ const game = () => {
             });
             
         };
-        function myAttachEvent(element, type, handler){
-            if (element.addEventListener) 
-                element.addEventListener(type, handler, false);
-            else element.attachEvent("on"+type, handler);
-        }
-        function myRemoveEvent(element,type,handler) {
-            if (element.removeEventListener) 
-               element.removeEventListener (type,handler,false);
-            if (element.detachEvent)
-               element.detachEvent ('on'+type,handler); 
-        }
+        // function myAttachEvent(element, type, handler){
+        //     if (element.addEventListener) 
+        //         element.addEventListener(type, handler, false);
+        //     else element.attachEvent("on"+type, handler);
+        // }
+        // function myRemoveEvent(element,type,handler) {
+        //     if (element.removeEventListener) 
+        //        element.removeEventListener (type,handler,false);
+        //     if (element.detachEvent)
+        //        element.detachEvent ('on'+type,handler); 
+        // }
 
         hands.forEach(hand =>{
             hand.addEventListener('animationend', function(){
@@ -161,17 +161,21 @@ const game = () => {
         const resultScreen = document.querySelector('.result');
         console.log("ending game");
 
-        matchScreen.classList.remove('fadeIn');
-        scoreScreen.classList.remove('fadeIn');
-        resultScreen.classList.add('fadeIn');
-
-        againBtn.addEventListener('click', ()=> {
+        function endGameListener(e){
             introScreen.classList.remove('fadeOut')
             matchScreen.classList.add('fadeOut');
             scoreScreen.classList.add('fadeOut');
             resultScreen.classList.remove('fadeIn');
+            myRemoveEvent(againBtn, 'click', endGameListener);
             restartGame();
-        });
+        }
+        matchScreen.classList.remove('fadeIn');
+        scoreScreen.classList.remove('fadeIn');
+        resultScreen.classList.add('fadeIn');
+
+        myAttachEvent(againBtn, 'click', endGameListener);
+        
+        //againBtn.removeEventListener('click', ()=>)
         
     };
 
@@ -192,6 +196,17 @@ const game = () => {
     playMatch();
     console.log("i\'m done");
 
+    function myAttachEvent(element, type, handler){
+        if (element.addEventListener) 
+            element.addEventListener(type, handler, false);
+        else element.attachEvent("on"+type, handler);
+    }
+    function myRemoveEvent(element,type,handler) {
+        if (element.removeEventListener) 
+           element.removeEventListener (type,handler,false);
+        if (element.detachEvent)
+           element.detachEvent ('on'+type,handler); 
+    }
 };
 
 //start the game
