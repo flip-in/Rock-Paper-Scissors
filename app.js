@@ -21,7 +21,8 @@ const game = () => {
         const playerHand = document.querySelector('.player-hand');
         const computerHand = document.querySelector('.computer-hand');
         const hands = document.querySelectorAll('.hands img');
-
+        playerHand.src = './assets/rock.png';
+        computerHand.src = './assets/rock.png';
 
      function myListener(e){
             //console.log(this);
@@ -35,14 +36,14 @@ const game = () => {
                 //Update Images -- needs delay
                 playerHand.src = `./assets/${this.textContent}.png`
                 computerHand.src = `./assets/${computerChoice}.png`
-                //reset button text to white -- needs delay
-                this.style.color = "white";
+                //reset button default CSS -- needs delay
+                this.classList.remove('selected');
                 //re-enable buttons -- needs delay
                 options.forEach(el =>{el.disabled = false;});
                 console.log("computer score:   ", cScore);
                 console.log("player Score:     ", pScore);
                 //Check End Game Trigger
-                if(cScore > 1 || pScore >1){
+                if(cScore > 4 || pScore >4){
                     console.log("Game Over!");
                     options.forEach(option=>{
                         myRemoveEvent(option, "click", myListener);
@@ -55,8 +56,8 @@ const game = () => {
             //Shaking animation no delay
             playerHand.style.animation = "shakePlayer 2s ease";
             computerHand.style.animation = "shakeComputer 2s ease";
-            //current button color is red no delay
-            this.style.color = "rgb(39, 41, 68)";
+            //current button is selected
+            this.classList.add('selected');
             //disable all buttons no delay
             options.forEach(el => {el.disabled = true;
             });
@@ -92,16 +93,23 @@ const game = () => {
 
     };
     const updateScore = () =>{
-          const playerScore = document.querySelector('.player-score p');
-          const computerScore = document.querySelector('.computer-score p');
-          playerScore.textContent = pScore;
-          computerScore.textContent = cScore;
+          const playerScore = document.querySelectorAll('.player-score p');
+          const computerScore = document.querySelectorAll('.computer-score p');
+        //   playerScore.textContent = pScore;
+        playerScore.forEach(p=>{
+            p.textContent=pScore;
+        })
+        //   computerScore.textContent = cScore;
+        computerScore.forEach(c=>{
+            c.textContent=cScore;
+        })
     }; 
 
 
     const compareHands = (playerChoice, computerChoice) => {
         //Update Text
         const winner = document.querySelector('.winner');
+        const result = document.querySelector('.champion');
         //checking for a tie
         if(playerChoice === computerChoice){
             winner.textContent = 'It\'s a tie!';
@@ -111,11 +119,13 @@ const game = () => {
         if(playerChoice === 'rock'){
             if(computerChoice === 'scissors'){
                 winner.textContent = 'Player Wins!';
+                result.textContent = 'Player Wins!';
                 pScore++;
                 updateScore();
                 return;
             } else{
                 winner.textContent = 'Computer Wins!';
+                result.textContent = 'Computer Wins!';
                 cScore++;
                 updateScore();
                 return;
@@ -125,11 +135,13 @@ const game = () => {
         if(playerChoice === 'paper'){
             if(computerChoice === 'scissors'){
                 winner.textContent = 'Computer Wins!';
+                result.textContent = 'Computer Wins!';
                 cScore++;
                 updateScore();
                 return;
             } else{
                 winner.textContent = 'Player Wins!';
+                result.textContent = 'Player Wins!';
                 pScore++;
                 updateScore();
                 return;
@@ -139,11 +151,13 @@ const game = () => {
         if(playerChoice === 'scissors'){
             if(computerChoice === 'rock'){
                 winner.textContent = 'Computer Wins!';
+                result.textContent = 'Computer Wins!';
                 cScore++;
                 updateScore();
                 return;
             } else{
                 winner.textContent = 'Player Wins!';
+                result.textContent = 'Player Wins!';
                 pScore++;
                 updateScore();
                 return;
@@ -182,6 +196,8 @@ const game = () => {
 
     const restartGame = () =>{
         const winner = document.querySelector('.winner');
+        const result = document.querySelector('.champion');
+        result.textContent = "Choose an option.";
         winner.textContent = "Choose an option.";
         pScore = 0;
         updateScore();
